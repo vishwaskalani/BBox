@@ -1,8 +1,8 @@
 com/example/stream/Stream$1.class
+com/example/nfa/NFA.class
 com/example/query/IQueryParser.class
 com/example/stream/Event.class
 com/example/query/QueryParser.class
-com/example/stream/NFA.class
 com/example/stream/IStream.class
 com/example/query/TestParser.class
 com/example/stream/Stream.class

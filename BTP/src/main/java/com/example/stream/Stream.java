@@ -5,6 +5,7 @@
 
 package com.example.stream;
 
+import com.example.nfa.*;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
