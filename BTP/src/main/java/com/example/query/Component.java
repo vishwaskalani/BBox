@@ -1,5 +1,5 @@
 package com.example.query;
-
+import com.example.stream.PairBB;
 public class Component {
 
     Integer power;
