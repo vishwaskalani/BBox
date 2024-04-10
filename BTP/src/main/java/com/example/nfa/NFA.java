@@ -1,10 +1,10 @@
 package com.example.nfa;
 
-import java.io.Serializable;
+// import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class NFA implements Serializable {
+public class NFA {
     private static final long serialVersionUID = 1L;
 
     private Set<Integer> currentState;
