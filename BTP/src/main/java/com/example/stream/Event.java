@@ -1,7 +1,7 @@
 package com.example.stream;
 import java.util.Objects;
 
-public class Event<A, B, C, D, E, F, G, H> {
+public class Event<A, B, C, D,E extends Comparable<E>,F extends Comparable<F>,G extends Comparable<G>,H extends Comparable<H>> {
     private final A frame_id;
     private final B obj_id;
     private final C obj_class;
