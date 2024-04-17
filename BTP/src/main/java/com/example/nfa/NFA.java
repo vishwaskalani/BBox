@@ -1,43 +1,80 @@
+// this file will build nfa based on the components of the query
 package com.example.nfa;
 
-// import java.io.Serializable;
+import java.util.Vector;
 import java.util.HashSet;
 import java.util.Set;
+import com.example.query.Component;
+import com.example.query.Operator;
+import com.example.query.Query;
+import com.example.stream.PairBB;
+import com.example.stream.Event;
 
+// this class will represent the NFA
 public class NFA {
-    private static final long serialVersionUID = 1L;
 
-    private Set<Integer> currentState;
+	public State startState;
+	public State currentState;
 
-    public NFA() {
-        // Initialize the NFA with the start state
-        currentState = new HashSet<>();
-        currentState.add(0); // Assuming state 0 is the start state
-    }
+	// this will build the nfa based on the components of the query
+	public void build(Query q){
+		// get the components of the query
+		Vector<Component> components = q.components;
+		startState = new State();
+		startState.isStartState = true;
+		Component firstComponent = components.get(0);
+		if(firstComponent.type.equals("num")){
+			State temp = startState;
+			// get the power
+			int power = firstComponent.power;
+			// now we need to create the states
+			for(int i=0; i<power; i++){
+				if(i==power-1){
+					startState.isAcceptingState = true;
+					startState.hasnextState = false;
+				}
+				else{
+					State newState = new State();
+					startState.transition_to_next = firstComponent;
+					startState.nextState = newState;
+					startState.hasnextState = true;
+					startState = newState;
 
-    // Transition function to simulate the movement of the NFA based on input events
-    public void transition(String eventColor) {
-        Set<Integer> nextState = new HashSet<>();
-		nextState.add(0);
+				}
+			}
+			startState = temp;
+			currentState = startState;
+		}
+	}
 
-        // Simulate the transitions based on the current state and input event
-        for (int state : currentState) {
-            // Assuming state 0 transitions to state 1 on encountering a "red" event
-            if (state == 0 && eventColor.equals("RED")) {
-				// System.out.println("Transitioning from state 0 to state 1 based on color: " + eventColor);
-                nextState.add(1);
-            }
-            // Add other transitions here if needed
-        }
+	public void hardcodebuild(){
+		Query q = new Query();
+		q.build1();
+		build(q);
+	}
 
-        currentState = nextState;
-    }
-
-    // Check if the NFA is in an accepting state
-    public boolean isInAcceptingState() {
-		// if(currentState.contains(1)){
-		// 	System.out.println("Accepting state reached");
+	// this is the transition function
+	public void transition(PairBB element){
+		if(currentState.hasnextState){
+			if(currentState.transition_to_next.pred(element)){
+				currentState = currentState.nextState;
+			}
+			else{
+				currentState = startState;
+			}
+		}
+		// else if(currentState.haselfLoop){
+		// 	if(currentState.transition_to_self.pred(c1,c2,element)){
+		// 		currentState = currentState;
+		// 	}
 		// }
-        return currentState.contains(1); // Assuming state 1 is the accepting state
-    }
+		else{
+			currentState = startState;
+		}
+	}
+
+	public boolean isInAcceptingState(){
+		return currentState.isAcceptingState;
+	}
+	
 }

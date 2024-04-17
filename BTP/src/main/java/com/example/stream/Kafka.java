@@ -12,6 +12,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Kafka {
@@ -20,20 +21,43 @@ public class Kafka {
 	private int last_frame_id = 0;
 
 	// a function to process the frame
-	public void processFrame(ArrayList<Event<Integer, Integer, Integer, String, Float, Float, Float, Float>> frame_history, NFA nfa) {
+	public void processFrame(ArrayList<Event<Integer, Integer, Integer, String, Float, Float, Float, Float>> frame_history,HashMap<String, NFA> pair_nfa) {
 		// generate all the pair of events from frame history
 		// and then process them
 		ArrayList<PairBB> pairs = new ArrayList<>();
 		for (int i = 0; i < frame_history.size(); i++) {
-			for (int j = i + 1; j < frame_history.size(); j++) {
+			for (int j = 0; j < frame_history.size(); j++) {
+
+				if(i == j) continue;
+
 				PairBB pair = new PairBB(frame_history.get(i), frame_history.get(j));
 				pairs.add(pair);
+				int id1 = pair.getobject1().getobj_id();
+				int id2 = pair.getobject2().getobj_id();
+				String key = id1 + " " + id2;
+				// if the nfa corresponding to the pair is not present in the map then create a new nfa
+				// else transition in the existing nfa
+				if (!pair_nfa.containsKey(key)) {
+					NFA nfa = new NFA();
+					nfa.hardcodebuild();
+					pair_nfa.put(key, nfa);
+					nfa.transition(pair);
+					if (nfa.isInAcceptingState()) {
+						System.out.println("Accepting state reached for objects with id: " + pair.getobject1().getobj_id() + " and " + pair.getobject2().getobj_id());
+					}
+				}
+				else{
+					System.out.println("Transitioning in the existing nfa");
+					NFA nfa = pair_nfa.get(key);
+					nfa.transition(pair);
+					if (nfa.isInAcceptingState()) {
+						System.out.println("Accepting state reached for objects with id: " + pair.getobject1().getobj_id() + " and " + pair.getobject2().getobj_id());
+					}
+				}
+				//print the size of the pair_nfa map
+				// System.out.println("Size of pair_nfa map: " + pair_nfa.size());
 				// print the object ids of the pair
 				// System.out.println("Pair of objects with id: " + pair.getobject1().getobj_id() + " and " + pair.getobject2().getobj_id());
-				// nfa.transition(pair);
-				// if (nfa.isInAcceptingState()) {
-				// 	System.out.println("Accepting state reached for objects with id: " + pair.getobject1().getobj_id() + " and " + pair.getobject2().getobj_id());
-				// }
 			}
 		}
 
@@ -54,7 +78,8 @@ public class Kafka {
 		// this will store all the events in the frame
 		ArrayList<Event<Integer, Integer, Integer, String, Float, Float, Float, Float>> frame_history = new ArrayList<>();
 
-		NFA nfa = new NFA();
+		// map of pair of object ids and nfas
+		HashMap<String, NFA> pair_nfa = new HashMap<>();
 
         try {
             while (true) {
@@ -87,7 +112,7 @@ public class Kafka {
 						} 
 						else {
 							// process the frame
-							processFrame(frame_history, nfa);
+							processFrame(frame_history, pair_nfa);
 							frame_history.clear();
 							frame_history.add(curr_event);
 							last_frame_id = frame_id;
