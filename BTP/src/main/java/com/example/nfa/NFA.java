@@ -20,37 +20,34 @@ public class NFA {
 	public void build(Query q){
 		// get the components of the query
 		Vector<Component> components = q.components;
+		int num_components = components.size();
 		startState = new State();
 		startState.isStartState = true;
-		Component firstComponent = components.get(0);
-		if(firstComponent.type.equals("num")){
-			State temp = startState;
-			// get the power
-			int power = firstComponent.power;
-			// now we need to create the states
-			for(int i=0; i<power; i++){
-				if(i==power-1){
-					startState.isAcceptingState = true;
-					startState.hasnextState = false;
-				}
-				else{
-					State newState = new State();
-					startState.transition_to_next = firstComponent;
-					startState.nextState = newState;
-					startState.hasnextState = true;
-					startState = newState;
+		State temp = startState;
+		for(int i=0; i<num_components; i++){
+			Component comp = components.get(i);
+			if(comp.type.equals("num")){
+				// get the power
+				int power = comp.power;
+				// now we need to create the states
+				for(int j=0; j<power; j++){
+					if(j==power-1 && i==num_components-1){
+						startState.isAcceptingState = true;
+						startState.hasnextState = false;
+					}
+					else{
+						State newState = new State();
+						startState.transition_to_next = comp;
+						startState.nextState = newState;
+						startState.hasnextState = true;
+						startState = newState;
 
+					}
 				}
 			}
-			startState = temp;
-			currentState = startState;
 		}
-	}
-
-	public void hardcodebuild(){
-		Query q = new Query();
-		q.build1();
-		build(q);
+		startState = temp;
+		currentState = startState;
 	}
 
 	// this is the transition function
@@ -75,6 +72,20 @@ public class NFA {
 
 	public boolean isInAcceptingState(){
 		return currentState.isAcceptingState;
+	}
+
+	// build a nfa with one component
+	public void hardcodebuild1(){
+		Query q = new Query();
+		q.build1();
+		build(q);
+	}
+
+	// build a nfa with two components
+	public void hardcodebuild2(){
+		Query q = new Query();
+		q.build2();
+		build(q);
 	}
 	
 }

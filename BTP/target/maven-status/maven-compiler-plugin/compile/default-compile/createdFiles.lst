@@ -1,9 +1,0 @@
-com/example/stream/TestKafka.class
-com/example/query/Query.class
-com/example/nfa/NFA.class
-com/example/stream/Event.class
-com/example/query/Component.class
-com/example/query/Operator.class
-com/example/nfa/State.class
-com/example/stream/Kafka.class
-com/example/stream/PairBB.class

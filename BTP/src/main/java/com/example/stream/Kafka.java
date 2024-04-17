@@ -39,7 +39,7 @@ public class Kafka {
 				// else transition in the existing nfa
 				if (!pair_nfa.containsKey(key)) {
 					NFA nfa = new NFA();
-					nfa.hardcodebuild();
+					nfa.hardcodebuild2();
 					pair_nfa.put(key, nfa);
 					nfa.transition(pair);
 					if (nfa.isInAcceptingState()) {
