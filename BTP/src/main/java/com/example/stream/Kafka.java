@@ -38,8 +38,9 @@ public class Kafka {
 				// if the nfa corresponding to the pair is not present in the map then create a new nfa
 				// else transition in the existing nfa
 				if (!pair_nfa.containsKey(key)) {
+					System.out.println("Creating a new nfa for objects with id: " + pair.getobject1().getobj_id() + " and " + pair.getobject2().getobj_id());
 					NFA nfa = new NFA();
-					nfa.hardcodebuild2();
+					nfa.hardcodebuild3();
 					pair_nfa.put(key, nfa);
 					nfa.transition(pair);
 					if (nfa.isInAcceptingState()) {
@@ -47,7 +48,7 @@ public class Kafka {
 					}
 				}
 				else{
-					System.out.println("Transitioning in the existing nfa");
+					// System.out.println("Transitioning in the existing nfa");
 					NFA nfa = pair_nfa.get(key);
 					nfa.transition(pair);
 					if (nfa.isInAcceptingState()) {

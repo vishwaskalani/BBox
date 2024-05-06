@@ -92,55 +92,55 @@ bool compare(const entry &e1,const entry& e2){
 vector<entry> generate_stream() {
 	vector<entry> traffic;
 	// car
-	// Entity obj1(2,1,"RED",60,120,{0,200,150,300},{1770,200,1920,300});
-	// vector<entry> events1 = obj1.generate_object_stream();
-	// traffic.insert(traffic.end(),events1.begin(),events1.end());
-	// // car2 overtaking car1
-	// Entity obj2(2,2,"BLUE",70,100,{0,400,150,500},{1770,400,1920,500});
-	// vector<entry> events2 = obj2.generate_object_stream();
-	// traffic.insert(traffic.end(),events2.begin(),events2.end());
-	// // bicycle
-	// Entity obj3(1,3,"BLACK",60,150,{0,100,40,120},{1880,100,1920,120});
-	// vector<entry> events3 = obj3.generate_object_stream();
-	// traffic.insert(traffic.end(),events3.begin(),events3.end());
-	// // car3 going reverse
-	// Entity obj4(2,4,"GREEN",70,100,{1770,600,1920,700},{0,600,150,700});
-	// vector<entry> events4 = obj4.generate_object_stream();
-	// traffic.insert(traffic.end(),events4.begin(),events4.end());
-	// //car going forward and backward
-	// Entity obj5(2,5,"RED",50,90,{0,550,40,570},{980,550,1020,570});
-	// Entity obj6(2,5,"RED",91,110,{980,550,1020,570},{0,550,40,570});
-	// vector<entry> events5 = obj5.generate_object_stream();
-	// vector<entry> events6 = obj6.generate_object_stream();
-	// traffic.insert(traffic.end(),events5.begin(),events5.end());
-	// traffic.insert(traffic.end(),events6.begin(),events6.end());
+	Entity obj1(2,1,"RED",60,120,{0,200,150,450},{1770,200,1920,450});
+	vector<entry> events1 = obj1.generate_object_stream();
+	traffic.insert(traffic.end(),events1.begin(),events1.end());
+	// car2 overtaking car1
+	Entity obj2(2,2,"BLUE",70,100,{0,400,150,500},{1770,400,1920,500});
+	vector<entry> events2 = obj2.generate_object_stream();
+	traffic.insert(traffic.end(),events2.begin(),events2.end());
+	// bicycle
+	Entity obj3(1,3,"BLACK",60,150,{0,100,40,120},{1880,100,1920,120});
+	vector<entry> events3 = obj3.generate_object_stream();
+	traffic.insert(traffic.end(),events3.begin(),events3.end());
+	// car3 going reverse
+	Entity obj4(2,4,"GREEN",70,100,{1770,600,1920,700},{0,600,150,700});
+	vector<entry> events4 = obj4.generate_object_stream();
+	traffic.insert(traffic.end(),events4.begin(),events4.end());
+	//car going forward and backward
+	Entity obj5(2,5,"RED",50,90,{0,550,40,570},{980,550,1020,570});
+	Entity obj6(2,5,"RED",91,110,{980,550,1020,570},{0,550,40,570});
+	vector<entry> events5 = obj5.generate_object_stream();
+	vector<entry> events6 = obj6.generate_object_stream();
+	traffic.insert(traffic.end(),events5.begin(),events5.end());
+	traffic.insert(traffic.end(),events6.begin(),events6.end());
 	// cellphone 67 person 0
-	Entity obj7(0,6,"BLACK",160,200,{0,10,20,30},{150,10,170,30});
-	Entity obj8(0,7,"BLACK",150,250,{0,70,20,90},{180,70,200,90});
-	Entity obj9(0,8,"BLACK",150,250,{0,110,20,130},{180,110,200,130});
-	Entity obj99(0,8,"BLACK",251,300,{180,110,200,130},{220,110,240,130});
-	// with a cellphone
-	Entity obj10(67,9,"BLUE",150,250,{5,115,15,125},{185,115,195,125});
-	Entity obj1010(67,9,"BLUE",251,300,{0,115,10,125},{40,115,50,125});
-	vector<entry> events7 = obj7.generate_object_stream();
-	vector<entry> events8 = obj8.generate_object_stream();
-	vector<entry> events9 = obj9.generate_object_stream();
-	vector<entry> events99 = obj99.generate_object_stream();
-	vector<entry> events10 = obj10.generate_object_stream();
-	vector<entry> events1010 = obj1010.generate_object_stream();
-	traffic.insert(traffic.end(),events7.begin(),events7.end());
-	traffic.insert(traffic.end(),events8.begin(),events8.end());
-	traffic.insert(traffic.end(),events9.begin(),events9.end());
-	traffic.insert(traffic.end(),events99.begin(),events99.end());
-	traffic.insert(traffic.end(),events10.begin(),events10.end());
-	traffic.insert(traffic.end(),events1010.begin(),events1010.end());
+	// Entity obj7(0,6,"BLACK",160,200,{0,10,20,30},{150,10,170,30});
+	// Entity obj8(0,7,"BLACK",150,250,{0,70,20,90},{180,70,200,90});
+	// Entity obj9(0,8,"BLACK",150,250,{0,110,20,130},{180,110,200,130});
+	// Entity obj99(0,8,"BLACK",251,300,{180,110,200,130},{220,110,240,130});
+	// // with a cellphone
+	// Entity obj10(67,9,"BLUE",150,250,{5,115,15,125},{185,115,195,125});
+	// Entity obj1010(67,9,"BLUE",251,300,{0,115,10,125},{40,115,50,125});
+	// vector<entry> events7 = obj7.generate_object_stream();
+	// vector<entry> events8 = obj8.generate_object_stream();
+	// vector<entry> events9 = obj9.generate_object_stream();
+	// vector<entry> events99 = obj99.generate_object_stream();
+	// vector<entry> events10 = obj10.generate_object_stream();
+	// vector<entry> events1010 = obj1010.generate_object_stream();
+	// traffic.insert(traffic.end(),events7.begin(),events7.end());
+	// traffic.insert(traffic.end(),events8.begin(),events8.end());
+	// traffic.insert(traffic.end(),events9.begin(),events9.end());
+	// traffic.insert(traffic.end(),events99.begin(),events99.end());
+	// traffic.insert(traffic.end(),events10.begin(),events10.end());
+	// traffic.insert(traffic.end(),events1010.begin(),events1010.end());
 	sort(traffic.begin(),traffic.end(),compare);
     return traffic;
 }
 
 int main() {
     vector<entry> video1=generate_stream();
-    ofstream out("logs1.txt");
+    ofstream out("logs_overtaking.txt");
     for ( int i = 0 ; i < video1.size() ; i++ ) {
         string var = video1[i].convert_to_string();
         out<<var<<"\n";

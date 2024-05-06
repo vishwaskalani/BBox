@@ -14,4 +14,16 @@ public class Operator {
 		return obj1.getxmax().compareTo(obj2.getxmin()) < 0 || obj1.getxmin().compareTo(obj2.getxmax()) > 0 || obj1.getymax().compareTo(obj2.getymin()) < 0 || obj1.getymin().compareTo(obj2.getymax()) > 0;
 	};
 
+	public static boolean behind(Event obj1, Event obj2) {
+		return obj1.getxmax().compareTo(obj2.getxmin()) < 0;
+	};
+
+	public static boolean infront(Event obj1, Event obj2) {
+		return obj1.getxmin().compareTo(obj2.getxmax()) > 0;
+	};
+
+	public static boolean intersect(Event obj1, Event obj2) {
+		return !disjoint(obj1, obj2);
+	};
+
 }
