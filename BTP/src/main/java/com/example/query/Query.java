@@ -58,7 +58,8 @@ public class Query {
 		comp2.operationType = Component.OperationType.INTERSECT;
 		components.add(comp2);
 		Component comp3 = new Component();
-		comp3.type="plus";
+		comp3.power=5;
+		comp3.type="num";
 		comp3.isPair_related = true;
 		comp3.cid1 = 2;
 		comp3.cid2 = 2;
